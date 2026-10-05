@@ -56,11 +56,6 @@
     content="Tarek & Rana Wedding"
   >
 
-
-  <!-- =========================
-       WHATSAPP / FACEBOOK / ETC.
-  ========================== -->
-
   <meta
     name="twitter:card"
     content="summary_large_image"
@@ -109,7 +104,7 @@
 
 
     /* =========================
-       CANVA
+       CANVA IFRAME
     ========================= */
 
     #canvaFrame {
@@ -124,6 +119,48 @@
       border: none;
 
       display: block;
+
+      z-index: 1;
+
+    }
+
+
+    /* =========================
+       TRANSPARENT HOTSPOTS
+    ========================= */
+
+    .hotspot {
+
+      position: absolute;
+
+      width: 110px;
+      height: 100px;
+
+      background: transparent;
+
+      border: none;
+
+      padding: 0;
+
+      margin: 0;
+
+      cursor: pointer;
+
+      z-index: 999997;
+
+      -webkit-tap-highlight-color: transparent;
+
+      touch-action: manipulation;
+
+    }
+
+
+    .hotspot:focus,
+    .hotspot:active {
+
+      outline: none;
+
+      background: transparent;
 
     }
 
@@ -196,20 +233,12 @@
     }
 
 
-    /* =========================
-       HOVER
-    ========================= */
-
     #musicButton:hover {
 
       background: rgba(255, 255, 255, 0.14);
 
     }
 
-
-    /* =========================
-       REMOVE OUTLINE
-    ========================= */
 
     #musicButton:focus {
 
@@ -226,7 +255,7 @@
 
 
   <!-- =========================
-       CANVA EMBED
+       CANVA IFRAME
   ========================== -->
 
   <iframe
@@ -244,7 +273,37 @@
 
 
   <!-- =========================
-       MUSIC
+       TRANSPARENT HOTSPOTS
+
+       Original design:
+       1366 × 5199 px
+
+       Hotspot size:
+       110 × 100 px
+  ========================== -->
+
+
+  <!-- BUTTON 1 -->
+
+  <button
+    class="hotspot"
+    id="hotspot1"
+    aria-label="Button 1"
+  ></button>
+
+
+  <!-- BUTTON 2 -->
+
+  <button
+    class="hotspot"
+    id="hotspot2"
+    aria-label="Button 2"
+  ></button>
+
+
+
+  <!-- =========================
+       SONG
   ========================== -->
 
   <audio
@@ -287,10 +346,9 @@
 
   <script>
 
-
     /* =========================
        ELEMENTS
-    ========================== */
+    ========================= */
 
     const song =
       document.getElementById("song");
@@ -301,11 +359,199 @@
     const musicButton =
       document.getElementById("musicButton");
 
+    const canvaFrame =
+      document.getElementById("canvaFrame");
+
+    const hotspot1 =
+      document.getElementById("hotspot1");
+
+    const hotspot2 =
+      document.getElementById("hotspot2");
+
+
+
+    /* =========================
+       ORIGINAL DESIGN SIZE
+    ========================= */
+
+    const DESIGN_WIDTH = 1366;
+
+    const DESIGN_HEIGHT = 5199;
+
+
+
+    /* =========================
+       HOTSPOT SIZE
+    ========================= */
+
+    const HOTSPOT_WIDTH = 110;
+
+    const HOTSPOT_HEIGHT = 100;
+
+
+
+    /* =========================
+       HOTSPOT POSITIONS
+    ========================= */
+
+    const hotspots = [
+
+      {
+        element: hotspot1,
+
+        x: 979.4,
+
+        y: 1627.4
+
+      },
+
+      {
+        element: hotspot2,
+
+        x: 979.4,
+
+        y: 2004.5
+
+      }
+
+    ];
+
+
+
+    /* =========================
+       PLACEHOLDER IFRAMES
+    =========================
+
+       هنغيرهم بعدين باللينكات
+       الحقيقية.
+    */
+
+    const PLACEHOLDER_1 =
+      "https://www.canva.com/design/DAHXJ2qulUI/y1Ny_6cpiQN4chiQ_OMktw/view?embed";
+
+    const PLACEHOLDER_2 =
+      "https://www.canva.com/design/DAHXJ2qulUI/y1Ny_6cpiQN4chiQ_OMktw/view?embed";
+
+
+
+    /* =========================
+       POSITION HOTSPOTS
+    ========================= */
+
+    function positionHotspots() {
+
+      const viewportWidth =
+        window.innerWidth;
+
+
+      /*
+        Scale based on the original
+        Canva design width.
+      */
+
+      const scale =
+        viewportWidth / DESIGN_WIDTH;
+
+
+      hotspots.forEach((hotspot) => {
+
+        const button =
+          hotspot.element;
+
+
+        button.style.left =
+          (hotspot.x * scale) + "px";
+
+
+        button.style.top =
+          (hotspot.y * scale) + "px";
+
+
+        button.style.width =
+          (HOTSPOT_WIDTH * scale) + "px";
+
+
+        button.style.height =
+          (HOTSPOT_HEIGHT * scale) + "px";
+
+      });
+
+    }
+
+
+
+    /* =========================
+       INITIAL POSITION
+    ========================= */
+
+    positionHotspots();
+
+
+
+    /* =========================
+       RESIZE
+    ========================= */
+
+    window.addEventListener(
+      "resize",
+      positionHotspots
+    );
+
+
+
+    /* =========================
+       CHANGE IFRAME
+    ========================= */
+
+    function changeIframe(url) {
+
+      canvaFrame.src = url;
+
+    }
+
+
+
+    /* =========================
+       BUTTON 1
+    ========================= */
+
+    hotspot1.addEventListener(
+      "click",
+      function (event) {
+
+        event.stopPropagation();
+
+        changeIframe(
+          PLACEHOLDER_1
+        );
+
+      }
+    );
+
+
+
+    /* =========================
+       BUTTON 2
+    ========================= */
+
+    hotspot2.addEventListener(
+      "click",
+      function (event) {
+
+        event.stopPropagation();
+
+        changeIframe(
+          PLACEHOLDER_2
+        );
+
+      }
+    );
+
 
 
     /* =========================
        START MUSIC
-    ========================== */
+    ========================= */
 
     function startMusic() {
 
@@ -314,7 +560,8 @@
       song.muted = false;
 
 
-      const promise = song.play();
+      const promise =
+        song.play();
 
 
       if (promise !== undefined) {
@@ -323,15 +570,12 @@
 
           .then(() => {
 
-            musicButton.textContent = "MUTE";
+            musicButton.textContent =
+              "MUTE";
 
 
-            /*
-              Remove transparent layer
-              after music starts
-            */
-
-            touchLayer.style.display = "none";
+            touchLayer.style.display =
+              "none";
 
 
             console.log(
@@ -358,7 +602,7 @@
 
     /* =========================
        FIRST TOUCH
-    ========================== */
+    ========================= */
 
     touchLayer.addEventListener(
 
@@ -384,7 +628,7 @@
 
     /* =========================
        FIRST CLICK
-    ========================== */
+    ========================= */
 
     touchLayer.addEventListener(
 
@@ -408,7 +652,7 @@
 
     /* =========================
        MUSIC BUTTON
-    ========================== */
+    ========================= */
 
     musicButton.addEventListener(
 
@@ -418,10 +662,6 @@
 
         event.stopPropagation();
 
-
-        /*
-          If music is OFF
-        */
 
         if (song.paused) {
 
@@ -451,10 +691,6 @@
         }
 
 
-        /*
-          If music is ON
-        */
-
         else {
 
           song.pause();
@@ -472,7 +708,7 @@
 
     /* =========================
        AUDIO EVENTS
-    ========================== */
+    ========================= */
 
     song.addEventListener(
 
@@ -501,12 +737,9 @@
 
     );
 
-
   </script>
 
 
 </body>
 
 </html>
-
-ولو غيرتي صورة الـ Preview بعد كده، ممكن WhatsApp يفضل مظهر الصورة القديمة بسبب الـ cache. ساعتها نقدر نعمل **cache-busting** للصورة من غير ما نغير الدومين.
