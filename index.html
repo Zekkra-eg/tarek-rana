@@ -10,10 +10,6 @@
     content="width=device-width, initial-scale=1.0, viewport-fit=cover"
   >
 
-  <!-- =========================
-       PAGE TITLE
-  ========================== -->
-
   <title>Tarek & Rana Wedding</title>
 
 
@@ -94,9 +90,41 @@
     body {
 
       width: 100%;
-      height: 100%;
 
-      overflow: hidden;
+      min-height: 100%;
+
+      margin: 0;
+
+      padding: 0;
+
+      background: #000;
+
+    }
+
+
+    body {
+
+      overflow-x: hidden;
+
+      overflow-y: auto;
+
+    }
+
+
+    /* =========================
+       CANVA WRAPPER
+
+       Original design:
+       1366 × 5199
+    ========================== */
+
+    #invitation {
+
+      position: relative;
+
+      width: 100%;
+
+      aspect-ratio: 1366 / 5199;
 
       background: #000;
 
@@ -105,13 +133,14 @@
 
     /* =========================
        CANVA IFRAME
-    ========================= */
+    ========================== */
 
     #canvaFrame {
 
-      position: fixed;
+      position: absolute;
 
-      inset: 0;
+      top: 0;
+      left: 0;
 
       width: 100%;
       height: 100%;
@@ -127,14 +156,24 @@
 
     /* =========================
        TRANSPARENT HOTSPOTS
-    ========================= */
+    ========================== */
 
     .hotspot {
 
       position: absolute;
 
+      /*
+        Original element:
+        87.1 × 78.4
+
+        Increased slightly for easier
+        tapping on mobile.
+      */
+
       width: 110px;
+
       height: 100px;
+
 
       background: transparent;
 
@@ -146,7 +185,9 @@
 
       cursor: pointer;
 
-      z-index: 999997;
+      z-index: 10;
+
+      display: block;
 
       -webkit-tap-highlight-color: transparent;
 
@@ -166,8 +207,85 @@
 
 
     /* =========================
+       MUSIC BUTTON
+    ========================== */
+
+    #musicButton {
+
+      position: fixed;
+
+      right: 18px;
+
+      bottom: 18px;
+
+      z-index: 999999;
+
+
+      min-width: 82px;
+
+      height: 38px;
+
+
+      padding: 0 16px;
+
+
+      border: 1px solid rgba(255, 255, 255, 0.65);
+
+      border-radius: 30px;
+
+
+      background: rgba(255, 255, 255, 0.08);
+
+
+      backdrop-filter: blur(8px);
+
+      -webkit-backdrop-filter: blur(8px);
+
+
+      color: white;
+
+
+      font-family: Arial, sans-serif;
+
+      font-size: 12px;
+
+      letter-spacing: 1.5px;
+
+      font-weight: 500;
+
+
+      cursor: pointer;
+
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+
+      -webkit-tap-highlight-color: transparent;
+
+    }
+
+
+    #musicButton:focus {
+
+      outline: none;
+
+    }
+
+
+    #musicButton:hover {
+
+      background: rgba(255, 255, 255, 0.14);
+
+    }
+
+
+    /* =========================
        FIRST TOUCH LAYER
-    ========================= */
+    ========================== */
 
     #touchLayer {
 
@@ -183,69 +301,6 @@
 
     }
 
-
-    /* =========================
-       MUSIC BUTTON
-    ========================= */
-
-    #musicButton {
-
-      position: fixed;
-
-      right: 18px;
-      bottom: 18px;
-
-      z-index: 999999;
-
-      min-width: 82px;
-      height: 38px;
-
-      padding: 0 16px;
-
-      border: 1px solid rgba(255, 255, 255, 0.65);
-
-      border-radius: 30px;
-
-      background: rgba(255, 255, 255, 0.08);
-
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-
-      color: white;
-
-      font-family: Arial, sans-serif;
-
-      font-size: 12px;
-
-      letter-spacing: 1.5px;
-
-      font-weight: 500;
-
-      cursor: pointer;
-
-      display: flex;
-
-      align-items: center;
-      justify-content: center;
-
-      -webkit-tap-highlight-color: transparent;
-
-    }
-
-
-    #musicButton:hover {
-
-      background: rgba(255, 255, 255, 0.14);
-
-    }
-
-
-    #musicButton:focus {
-
-      outline: none;
-
-    }
-
   </style>
 
 </head>
@@ -255,55 +310,73 @@
 
 
   <!-- =========================
-       CANVA IFRAME
+       INVITATION
   ========================== -->
 
-  <iframe
+  <main id="invitation">
 
-    id="canvaFrame"
 
-    src="https://www.canva.com/design/DAHXDm-Q1U8/4WPheNzhMWogiVXa4VgWkg/view?embed"
+    <!-- =========================
+         CANVA
+    ========================== -->
 
-    allowfullscreen
+    <iframe
 
-    allow="fullscreen; autoplay"
+      id="canvaFrame"
 
-  ></iframe>
+      src="https://www.canva.com/design/DAHXJ2qulUI/y1Ny_6cpiQN4chiQ_OMktw/view?embed"
+
+      allowfullscreen
+
+      allow="fullscreen; autoplay"
+
+    ></iframe>
+
+
+
+    <!-- =========================
+         HOTSPOT 1
+
+         X = 979.4
+         Y = 1627.4
+    ========================== -->
+
+    <button
+
+      class="hotspot"
+
+      id="hotspot1"
+
+      aria-label="Button 1"
+
+    ></button>
+
+
+
+    <!-- =========================
+         HOTSPOT 2
+
+         X = 979.4
+         Y = 2004.5
+    ========================== -->
+
+    <button
+
+      class="hotspot"
+
+      id="hotspot2"
+
+      aria-label="Button 2"
+
+    ></button>
+
+
+  </main>
 
 
 
   <!-- =========================
-       TRANSPARENT HOTSPOTS
-
-       Original design:
-       1366 × 5199 px
-
-       Hotspot size:
-       110 × 100 px
-  ========================== -->
-
-
-  <!-- BUTTON 1 -->
-
-  <button
-    class="hotspot"
-    id="hotspot1"
-    aria-label="Button 1"
-  ></button>
-
-
-  <!-- BUTTON 2 -->
-
-  <button
-    class="hotspot"
-    id="hotspot2"
-    aria-label="Button 2"
-  ></button>
-
-
-
-  <!-- =========================
-       SONG
+       MUSIC
   ========================== -->
 
   <audio
@@ -346,18 +419,13 @@
 
   <script>
 
+
     /* =========================
        ELEMENTS
     ========================= */
 
-    const song =
-      document.getElementById("song");
-
-    const touchLayer =
-      document.getElementById("touchLayer");
-
-    const musicButton =
-      document.getElementById("musicButton");
+    const invitation =
+      document.getElementById("invitation");
 
     const canvaFrame =
       document.getElementById("canvaFrame");
@@ -368,10 +436,19 @@
     const hotspot2 =
       document.getElementById("hotspot2");
 
+    const song =
+      document.getElementById("song");
+
+    const touchLayer =
+      document.getElementById("touchLayer");
+
+    const musicButton =
+      document.getElementById("musicButton");
+
 
 
     /* =========================
-       ORIGINAL DESIGN SIZE
+       ORIGINAL CANVA SIZE
     ========================= */
 
     const DESIGN_WIDTH = 1366;
@@ -381,8 +458,21 @@
 
 
     /* =========================
-       HOTSPOT SIZE
+       ORIGINAL HOTSPOT SIZE
     ========================= */
+
+    const ORIGINAL_WIDTH = 87.1;
+
+    const ORIGINAL_HEIGHT = 78.4;
+
+
+
+    /*
+      Slightly larger than the original.
+
+      110 × 100 gives easier
+      touch interaction.
+    */
 
     const HOTSPOT_WIDTH = 110;
 
@@ -391,7 +481,7 @@
 
 
     /* =========================
-       HOTSPOT POSITIONS
+       HOTSPOT DATA
     ========================= */
 
     const hotspots = [
@@ -419,53 +509,72 @@
 
 
     /* =========================
-       PLACEHOLDER IFRAMES
-    =========================
-
-       هنغيرهم بعدين باللينكات
-       الحقيقية.
-    */
+       PLACEHOLDER URLS
+    ========================= */
 
     const PLACEHOLDER_1 =
-      "https://www.canva.com/design/DAHXJ2qulUI/y1Ny_6cpiQN4chiQ_OMktw/view?embed";
+      "https://example.com/page-1";
 
     const PLACEHOLDER_2 =
-      "https://www.canva.com/design/DAHXJ2qulUI/y1Ny_6cpiQN4chiQ_OMktw/view?embed";
+      "https://example.com/page-2";
 
 
 
     /* =========================
        POSITION HOTSPOTS
-    ========================= */
+    ========================== */
 
     function positionHotspots() {
 
-      const viewportWidth =
-        window.innerWidth;
+
+      /*
+        Current displayed width
+        of the 1366px design.
+      */
+
+      const displayedWidth =
+        invitation.clientWidth;
 
 
       /*
-        Scale based on the original
-        Canva design width.
+        Scale from original Canva
+        coordinates to displayed size.
       */
 
       const scale =
-        viewportWidth / DESIGN_WIDTH;
+        displayedWidth / DESIGN_WIDTH;
+
 
 
       hotspots.forEach((hotspot) => {
+
 
         const button =
           hotspot.element;
 
 
+
+        /*
+          X position
+        */
+
         button.style.left =
           (hotspot.x * scale) + "px";
 
 
+
+        /*
+          Y position
+        */
+
         button.style.top =
           (hotspot.y * scale) + "px";
 
+
+
+        /*
+          Scaled clickable area
+        */
 
         button.style.width =
           (HOTSPOT_WIDTH * scale) + "px";
@@ -474,6 +583,7 @@
         button.style.height =
           (HOTSPOT_HEIGHT * scale) + "px";
 
+
       });
 
     }
@@ -481,8 +591,8 @@
 
 
     /* =========================
-       INITIAL POSITION
-    ========================= */
+       POSITION INIT
+    ========================== */
 
     positionHotspots();
 
@@ -490,18 +600,21 @@
 
     /* =========================
        RESIZE
-    ========================= */
+    ========================== */
 
     window.addEventListener(
+
       "resize",
+
       positionHotspots
+
     );
 
 
 
     /* =========================
        CHANGE IFRAME
-    ========================= */
+    ========================== */
 
     function changeIframe(url) {
 
@@ -512,48 +625,65 @@
 
 
     /* =========================
-       BUTTON 1
-    ========================= */
+       HOTSPOT 1
+    ========================== */
 
     hotspot1.addEventListener(
+
       "click",
+
       function (event) {
+
+        event.preventDefault();
 
         event.stopPropagation();
 
+
         changeIframe(
+
           PLACEHOLDER_1
+
         );
 
       }
+
     );
 
 
 
     /* =========================
-       BUTTON 2
-    ========================= */
+       HOTSPOT 2
+    ========================== */
 
     hotspot2.addEventListener(
+
       "click",
+
       function (event) {
+
+        event.preventDefault();
 
         event.stopPropagation();
 
+
         changeIframe(
+
           PLACEHOLDER_2
+
         );
 
       }
+
     );
 
 
 
     /* =========================
        START MUSIC
-    ========================= */
+    ========================== */
 
     function startMusic() {
+
 
       song.volume = 1;
 
@@ -564,33 +694,43 @@
         song.play();
 
 
+
       if (promise !== undefined) {
+
 
         promise
 
           .then(() => {
 
+
             musicButton.textContent =
               "MUTE";
 
 
+            /*
+              Remove the first-touch
+              layer after successful
+              playback.
+            */
+
             touchLayer.style.display =
               "none";
 
-
-            console.log(
-              "✅ MUSIC STARTED"
-            );
 
           })
 
 
           .catch((error) => {
 
+
             console.log(
-              "❌ AUDIO BLOCKED",
+
+              "Audio blocked:",
+
               error
+
             );
+
 
           });
 
@@ -602,7 +742,7 @@
 
     /* =========================
        FIRST TOUCH
-    ========================= */
+    ========================== */
 
     touchLayer.addEventListener(
 
@@ -628,7 +768,7 @@
 
     /* =========================
        FIRST CLICK
-    ========================= */
+    ========================== */
 
     touchLayer.addEventListener(
 
@@ -652,7 +792,7 @@
 
     /* =========================
        MUSIC BUTTON
-    ========================= */
+    ========================== */
 
     musicButton.addEventListener(
 
@@ -660,10 +800,13 @@
 
       function (event) {
 
+
         event.stopPropagation();
 
 
+
         if (song.paused) {
+
 
           song.volume = 1;
 
@@ -674,29 +817,40 @@
 
             .then(() => {
 
+
               musicButton.textContent =
                 "MUTE";
+
 
             })
 
             .catch((error) => {
 
+
               console.log(
-                "❌ AUDIO BLOCKED",
+
+                "Audio blocked:",
+
                 error
+
               );
 
+
             });
+
 
         }
 
 
         else {
 
+
           song.pause();
+
 
           musicButton.textContent =
             "PLAY";
+
 
         }
 
@@ -708,7 +862,7 @@
 
     /* =========================
        AUDIO EVENTS
-    ========================= */
+    ========================== */
 
     song.addEventListener(
 
@@ -736,6 +890,7 @@
       }
 
     );
+
 
   </script>
 
