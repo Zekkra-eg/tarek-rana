@@ -12,14 +12,19 @@
 
   <!-- =========================
        PAGE TITLE
-  ========================= -->
+  ========================== -->
 
   <title>Tarek & Rana Wedding</title>
 
 
   <!-- =========================
-       LINK PREVIEW
-  ========================= -->
+       SOCIAL MEDIA PREVIEW
+  ========================== -->
+
+  <meta
+    name="description"
+    content="Tarek & Rana Wedding Invitation"
+  >
 
   <meta
     property="og:title"
@@ -33,7 +38,7 @@
 
   <meta
     property="og:image"
-    content="https://zekra.link/preview.png"
+    content="https://tarek-rana.vercel.app/preview.png"
   >
 
   <meta
@@ -46,10 +51,15 @@
     content="https://zekra.link/rana-wedding"
   >
 
+  <meta
+    property="og:site_name"
+    content="Tarek & Rana Wedding"
+  >
+
 
   <!-- =========================
-       TWITTER / SOCIAL PREVIEW
-  ========================= -->
+       WHATSAPP / FACEBOOK / ETC.
+  ========================== -->
 
   <meta
     name="twitter:card"
@@ -68,7 +78,7 @@
 
   <meta
     name="twitter:image"
-    content="https://zekra.link/preview.png"
+    content="https://tarek-rana.vercel.app/preview.png"
   >
 
 
@@ -94,6 +104,7 @@
       overflow: hidden;
 
       background: #000;
+
     }
 
 
@@ -113,6 +124,7 @@
       border: none;
 
       display: block;
+
     }
 
 
@@ -131,6 +143,7 @@
       background: transparent;
 
       touch-action: manipulation;
+
     }
 
 
@@ -152,11 +165,11 @@
 
       padding: 0 16px;
 
-      border: 1px solid rgba(255,255,255,0.65);
+      border: 1px solid rgba(255, 255, 255, 0.65);
 
       border-radius: 30px;
 
-      background: rgba(255,255,255,0.08);
+      background: rgba(255, 255, 255, 0.08);
 
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
@@ -179,8 +192,30 @@
       justify-content: center;
 
       -webkit-tap-highlight-color: transparent;
+
     }
 
+
+    /* =========================
+       HOVER
+    ========================= */
+
+    #musicButton:hover {
+
+      background: rgba(255, 255, 255, 0.14);
+
+    }
+
+
+    /* =========================
+       REMOVE OUTLINE
+    ========================= */
+
+    #musicButton:focus {
+
+      outline: none;
+
+    }
 
   </style>
 
@@ -191,8 +226,8 @@
 
 
   <!-- =========================
-       CANVA
-  ========================= -->
+       CANVA EMBED
+  ========================== -->
 
   <iframe
 
@@ -207,9 +242,10 @@
   ></iframe>
 
 
+
   <!-- =========================
-       SONG
-  ========================= -->
+       MUSIC
+  ========================== -->
 
   <audio
 
@@ -224,16 +260,18 @@
   ></audio>
 
 
+
   <!-- =========================
        FIRST TOUCH
-  ========================= -->
+  ========================== -->
 
   <div id="touchLayer"></div>
 
 
+
   <!-- =========================
        MUSIC BUTTON
-  ========================= -->
+  ========================== -->
 
   <button
 
@@ -242,9 +280,7 @@
     type="button"
 
   >
-
     PLAY
-
   </button>
 
 
@@ -254,7 +290,7 @@
 
     /* =========================
        ELEMENTS
-    ========================= */
+    ========================== */
 
     const song =
       document.getElementById("song");
@@ -269,7 +305,7 @@
 
     /* =========================
        START MUSIC
-    ========================= */
+    ========================== */
 
     function startMusic() {
 
@@ -292,7 +328,7 @@
 
             /*
               Remove transparent layer
-              AFTER audio successfully starts
+              after music starts
             */
 
             touchLayer.style.display = "none";
@@ -304,7 +340,8 @@
 
           })
 
-          .catch(error => {
+
+          .catch((error) => {
 
             console.log(
               "❌ AUDIO BLOCKED",
@@ -321,7 +358,7 @@
 
     /* =========================
        FIRST TOUCH
-    ========================= */
+    ========================== */
 
     touchLayer.addEventListener(
 
@@ -336,6 +373,7 @@
       {
 
         passive: true,
+
         once: true
 
       }
@@ -346,7 +384,7 @@
 
     /* =========================
        FIRST CLICK
-    ========================= */
+    ========================== */
 
     touchLayer.addEventListener(
 
@@ -370,7 +408,7 @@
 
     /* =========================
        MUSIC BUTTON
-    ========================= */
+    ========================== */
 
     musicButton.addEventListener(
 
@@ -380,6 +418,10 @@
 
         event.stopPropagation();
 
+
+        /*
+          If music is OFF
+        */
 
         if (song.paused) {
 
@@ -397,7 +439,7 @@
 
             })
 
-            .catch(error => {
+            .catch((error) => {
 
               console.log(
                 "❌ AUDIO BLOCKED",
@@ -407,6 +449,11 @@
             });
 
         }
+
+
+        /*
+          If music is ON
+        */
 
         else {
 
@@ -425,7 +472,7 @@
 
     /* =========================
        AUDIO EVENTS
-    ========================= */
+    ========================== */
 
     song.addEventListener(
 
@@ -461,3 +508,5 @@
 </body>
 
 </html>
+
+ولو غيرتي صورة الـ Preview بعد كده، ممكن WhatsApp يفضل مظهر الصورة القديمة بسبب الـ cache. ساعتها نقدر نعمل **cache-busting** للصورة من غير ما نغير الدومين.
