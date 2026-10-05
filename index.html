@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
 
   <meta
     name="viewport"
-    content="width=device-width, initial-scale=1.0"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
   >
 
   <title>Tarek & Rana Wedding</title>
@@ -20,65 +21,69 @@
     html,
     body {
       width: 100%;
-      min-height: 100%;
-      background: #ffffff;
-    }
-
-    body {
-      overflow-x: hidden;
-    }
-
-    .canva-container {
-      position: relative;
-      width: 100%;
-      height: 0;
-      padding-top: 380.6003%;
-      overflow: hidden;
-    }
-
-    .canva-container iframe {
-      position: absolute;
-      width: 100%;
       height: 100%;
-      top: 0;
-      left: 0;
-      border: none;
-      padding: 0;
-      margin: 0;
+      overflow: hidden;
+      background: #000;
     }
 
-    /* Invisible layer used to detect the first touch */
-    #touchLayer {
+    /* Canva page */
+    #canvaFrame {
       position: fixed;
       inset: 0;
-      z-index: 9999;
-      background: transparent;
+      width: 100%;
+      height: 100%;
+      border: none;
       display: block;
-      pointer-events: auto;
+    }
+
+    /* Music button */
+    #musicButton {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+
+      width: 48px;
+      height: 48px;
+
+      border: none;
+      border-radius: 50%;
+
+      background: rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+
+      color: white;
+      font-size: 20px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      cursor: pointer;
+      z-index: 99999;
+
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    #musicButton:active {
+      transform: scale(0.94);
     }
   </style>
 </head>
 
+
 <body>
 
   <!-- =========================
-       CANVA EMBED
+       CANVA PAGE
   ========================== -->
 
-  <div class="canva-container">
-
-    <iframe
-      src="https://www.canva.com/design/DAHXJ2qulUI/y1Ny_6cpiQN4chiQ_OMktw/view?embed"
-      allowfullscreen
-      allow="fullscreen"
-      loading="eager">
-    </iframe>
-
-  </div>
-
-
-  <!-- Invisible first-touch layer -->
-  <div id="touchLayer"></div>
+  <iframe
+    id="canvaFrame"
+    src="https://www.canva.com/design/DAHXDm-Q1U8/4WPheNzhMWogiVXa4VgWkg/view?embed"
+    allow="fullscreen; autoplay"
+    allowfullscreen>
+  </iframe>
 
 
   <!-- =========================
@@ -86,101 +91,134 @@
   ========================== -->
 
   <audio
-    id="bgMusic"
-    src="song.mp3"
+    id="music"
+    src="/song.mp3"
     preload="auto"
     loop
     playsinline>
   </audio>
 
 
+  <!-- =========================
+       MUSIC BUTTON
+  ========================== -->
+
+  <button
+    id="musicButton"
+    type="button"
+    aria-label="Play or mute music">
+    🔇
+  </button>
+
+
   <script>
 
-    const music = document.getElementById("bgMusic");
-    const touchLayer = document.getElementById("touchLayer");
-
-    let musicStarted = false;
+    const music = document.getElementById("music");
+    const musicButton = document.getElementById("musicButton");
 
 
-    // =========================
-    // TRY AUTOPLAY
-    // =========================
+    /* =========================
+       START MUSIC
+    ========================== */
 
-    function startMusic() {
+    async function startMusic() {
 
-      if (musicStarted) return;
+      try {
 
-      music.volume = 1;
+        await music.play();
 
-      const playPromise = music.play();
+        musicButton.textContent = "🔊";
 
-      if (playPromise !== undefined) {
+      } catch (error) {
 
-        playPromise
-          .then(() => {
-
-            musicStarted = true;
-
-            // Remove invisible layer once music starts
-            touchLayer.style.display = "none";
-
-          })
-          .catch(() => {
-
-            // Autoplay blocked
-            // Wait for first user interaction
-
-          });
+        console.log("Autoplay blocked");
 
       }
-    }
-
-
-    // Try immediately
-    window.addEventListener("load", () => {
-      startMusic();
-    });
-
-
-    // =========================
-    // FIRST TOUCH / CLICK
-    // =========================
-
-    function firstInteraction() {
-
-      if (musicStarted) return;
-
-      music.play()
-        .then(() => {
-
-          musicStarted = true;
-
-          touchLayer.style.display = "none";
-
-        })
-        .catch(() => {});
 
     }
 
 
-    touchLayer.addEventListener("touchstart", firstInteraction, {
-      passive: true
-    });
+    /* =========================
+       FIRST USER TOUCH
+    ========================== */
 
-    touchLayer.addEventListener("click", firstInteraction);
+    document.addEventListener(
+      "touchstart",
+      startMusic,
+      {
+        once: true,
+        passive: true
+      }
+    );
 
 
-    // Also detect any interaction anywhere
-    document.addEventListener("touchstart", firstInteraction, {
-      passive: true,
-      once: true
-    });
+    document.addEventListener(
+      "pointerdown",
+      startMusic,
+      {
+        once: true,
+        passive: true
+      }
+    );
 
-    document.addEventListener("click", firstInteraction, {
-      once: true
-    });
+
+    /* =========================
+       PLAY / MUTE BUTTON
+    ========================== */
+
+    musicButton.addEventListener(
+      "click",
+      async function (event) {
+
+        event.stopPropagation();
+
+        if (music.paused) {
+
+          try {
+
+            await music.play();
+
+            musicButton.textContent = "🔊";
+
+          } catch (error) {
+
+            console.log("Music could not start");
+
+          }
+
+        } else {
+
+          music.pause();
+
+          musicButton.textContent = "🔇";
+
+        }
+
+      }
+    );
+
+
+    /* =========================
+       KEEP BUTTON UPDATED
+    ========================== */
+
+    music.addEventListener(
+      "play",
+      function () {
+        musicButton.textContent = "🔊";
+      }
+    );
+
+
+    music.addEventListener(
+      "pause",
+      function () {
+        musicButton.textContent = "🔇";
+      }
+    );
 
   </script>
 
 </body>
+
 </html>
