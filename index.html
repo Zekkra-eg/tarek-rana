@@ -1,8 +1,8 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-
   <meta charset="UTF-8">
 
   <meta
@@ -11,10 +11,14 @@
   >
 
   <!-- =========================
-       PAGE / LINK TITLE
+       PAGE TITLE
   ========================== -->
 
   <title>Tarek & Rana Wedding</title>
+
+  <!-- =========================
+       SOCIAL MEDIA PREVIEW
+  ========================== -->
 
   <meta
     property="og:title"
@@ -26,10 +30,9 @@
     content="You're invited to celebrate our special day 🤍"
   >
 
-  <!-- preview.png is inside public/ -->
   <meta
     property="og:image"
-    content="https://zekra.link/preview.png"
+    content="preview.jpg"
   >
 
   <meta
@@ -42,6 +45,7 @@
     content="https://zekra.link/rana-wedding"
   >
 
+  <!-- WhatsApp / Facebook -->
   <meta
     name="twitter:card"
     content="summary_large_image"
@@ -59,11 +63,14 @@
 
   <meta
     name="twitter:image"
-    content="https://zekra.link/preview.png"
+    content="preview.jpg"
   >
 
-
   <style>
+
+    /* =========================
+       RESET
+    ========================== */
 
     * {
       margin: 0;
@@ -75,7 +82,7 @@
     body {
       width: 100%;
       min-height: 100%;
-      background: #fff;
+      background: #ffffff;
     }
 
     body {
@@ -84,7 +91,8 @@
 
 
     /* =========================
-       CANVA
+       CANVA CONTAINER
+       SAME STYLE AS CANVA EMBED
     ========================== */
 
     .canva-wrapper {
@@ -101,11 +109,16 @@
 
       border-radius: 8px;
 
-      margin: 0;
+      margin-top: 0;
+      margin-bottom: 0;
 
       will-change: transform;
     }
 
+
+    /* =========================
+       CANVA IFRAME
+    ========================== */
 
     #canvaFrame {
       position: absolute;
@@ -120,16 +133,17 @@
 
       padding: 0;
       margin: 0;
+
+      display: block;
     }
 
 
     /* =========================
        FIRST TOUCH LAYER
-       COMPLETELY INVISIBLE
+       Starts the music
     ========================== */
 
     #touchLayer {
-
       position: fixed;
 
       inset: 0;
@@ -139,25 +153,17 @@
 
       background: transparent;
 
-      border: none;
-
-      outline: none;
-
       z-index: 999999;
 
       cursor: pointer;
-
-      -webkit-tap-highlight-color: transparent;
     }
 
 
     /* =========================
-       SOUND BUTTON
-       COMPLETELY TRANSPARENT
+       PLAY / MUTE BUTTON
     ========================== */
 
     #soundButton {
-
       position: fixed;
 
       right: 18px;
@@ -165,15 +171,9 @@
 
       z-index: 1000000;
 
-      background: transparent;
-
       border: none;
 
-      outline: none;
-
-      padding: 8px;
-
-      margin: 0;
+      background: transparent;
 
       color: white;
 
@@ -183,37 +183,22 @@
 
       letter-spacing: 1px;
 
-      text-shadow:
-        0 1px 4px rgba(0,0,0,.65);
-
       cursor: pointer;
 
-      -webkit-tap-highlight-color: transparent;
+      padding: 8px 10px;
+
+      text-shadow:
+        0 1px 3px rgba(0,0,0,.5);
 
       display: none;
-
-      appearance: none;
-    }
-
-
-    #soundButton:focus,
-    #soundButton:active {
-
-      background: transparent;
-
-      outline: none;
-
-      border: none;
     }
 
 
     /* =========================
-       NAVIGATION BUTTONS
-       TRANSPARENT
+       NAVIGATION OVERLAYS
     ========================== */
 
     .nav-button {
-
       position: absolute;
 
       z-index: 999998;
@@ -222,8 +207,6 @@
 
       border: none;
 
-      outline: none;
-
       padding: 0;
 
       margin: 0;
@@ -231,24 +214,29 @@
       cursor: pointer;
 
       display: none;
-
-      -webkit-tap-highlight-color: transparent;
     }
 
 
     /* =========================
        PAGE 1 → PAGE 2
-       EDIT THESE VALUES
+
+       CHANGE THESE VALUES
+       TO MATCH YOUR CANVA BUTTON
     ========================== */
 
     #page1Next {
+      /*
+        Example:
+
+        top: 88%;
+        left: 25%;
+        width: 50%;
+        height: 8%;
+      */
 
       top: 88%;
-
       left: 25%;
-
       width: 50%;
-
       height: 8%;
     }
 
@@ -258,32 +246,29 @@
     ========================== */
 
     #page2Next {
-
       top: 88%;
-
       left: 25%;
-
       width: 50%;
-
       height: 8%;
     }
 
 
     /* =========================
        PAGE 2 → PAGE 1
+       Optional back button
     ========================== */
 
     #page2Back {
-
       top: 5%;
-
       left: 5%;
-
       width: 20%;
-
       height: 8%;
     }
 
+
+    /* =========================
+       HIDE NAVIGATION WHEN NOT USED
+    ========================== */
 
     .show {
       display: block !important;
@@ -307,12 +292,10 @@
     loop
     playsinline
   >
-
     <source
       src="/song.mp3"
       type="audio/mpeg"
     >
-
   </audio>
 
 
@@ -334,7 +317,9 @@
     ></iframe>
 
 
-    <!-- PAGE 1 → PAGE 2 -->
+    <!-- =========================
+         PAGE 1 BUTTON
+    ========================== -->
 
     <button
       id="page1Next"
@@ -343,16 +328,15 @@
     ></button>
 
 
-    <!-- PAGE 2 → PAGE 3 -->
+    <!-- =========================
+         PAGE 2 BUTTONS
+    ========================== -->
 
     <button
       id="page2Next"
       class="nav-button"
       aria-label="Next"
     ></button>
-
-
-    <!-- PAGE 2 → PAGE 1 -->
 
     <button
       id="page2Back"
@@ -364,20 +348,17 @@
 
 
   <!-- =========================
-       INVISIBLE FIRST TOUCH
-    ========================== -->
+       FIRST TOUCH
+  ========================== -->
 
   <div id="touchLayer"></div>
 
 
   <!-- =========================
-       MUSIC CONTROL
-    ========================== -->
+       SOUND BUTTON
+  ========================== -->
 
-  <button
-    id="soundButton"
-    aria-label="Music control"
-  >
+  <button id="soundButton">
     MUTE
   </button>
 
@@ -385,7 +366,7 @@
   <script>
 
     /* =========================
-       CANVA URLS
+       CANVA PAGES
     ========================== */
 
     const PAGE_1 =
@@ -396,7 +377,13 @@
       "https://www.canva.com/design/DAHXJ2qulUI/y1Ny_6cpiQN4chiQ_OMktw/view?embed";
 
 
-    const PAGE_3 = "";
+    /*
+      Add Page 3 URL here
+      when you send it
+    */
+
+    const PAGE_3 =
+      "";
 
 
     /* =========================
@@ -425,6 +412,10 @@
       document.getElementById("page2Back");
 
 
+    /* =========================
+       CURRENT PAGE
+    ========================== */
+
     let currentPage = 1;
 
 
@@ -435,7 +426,6 @@
     function startMusic() {
 
       song.volume = 1;
-
       song.muted = false;
 
       const promise = song.play();
@@ -479,12 +469,18 @@
       currentPage = page;
 
 
+      /* Hide all navigation */
+
       page1Next.classList.remove("show");
 
       page2Next.classList.remove("show");
 
       page2Back.classList.remove("show");
 
+
+      /* =========================
+         PAGE 1
+      ========================== */
 
       if (page === 1) {
 
@@ -494,6 +490,10 @@
 
       }
 
+
+      /* =========================
+         PAGE 2
+      ========================== */
 
       else if (page === 2) {
 
@@ -505,6 +505,10 @@
 
       }
 
+
+      /* =========================
+         PAGE 3
+      ========================== */
 
       else if (page === 3) {
 
@@ -520,7 +524,7 @@
 
 
     /* =========================
-       FIRST USER TOUCH
+       FIRST TOUCH
     ========================== */
 
     function firstInteraction() {
@@ -529,6 +533,11 @@
 
       showPage(1);
 
+      /*
+        Remove the transparent
+        first-touch layer
+      */
+
       touchLayer.style.display =
         "none";
 
@@ -536,7 +545,7 @@
 
 
     /* =========================
-       TOUCH
+       TOUCH / CLICK
     ========================== */
 
     touchLayer.addEventListener(
@@ -568,8 +577,6 @@
 
         e.preventDefault();
 
-        e.stopPropagation();
-
         showPage(2);
 
       }
@@ -585,8 +592,6 @@
       function(e) {
 
         e.preventDefault();
-
-        e.stopPropagation();
 
         if (PAGE_3 !== "") {
 
@@ -608,8 +613,6 @@
 
         e.preventDefault();
 
-        e.stopPropagation();
-
         showPage(1);
 
       }
@@ -617,7 +620,7 @@
 
 
     /* =========================
-       PLAY / MUTE
+       MUTE / UNMUTE
     ========================== */
 
     soundButton.addEventListener(
@@ -652,8 +655,25 @@
       }
     );
 
+
+    /* =========================
+       PREVENT DOUBLE AUDIO
+    ========================== */
+
+    song.addEventListener(
+      "ended",
+      function() {
+
+        song.currentTime = 0;
+
+        song.play();
+
+      }
+    );
+
   </script>
 
 </body>
 
 </html>
+```
