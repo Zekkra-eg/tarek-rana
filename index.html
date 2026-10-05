@@ -1,120 +1,280 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+  <meta charset="UTF-8">
 
-<meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1.0, viewport-fit=cover"
->
+  <!-- =========================
+       PAGE TITLE
+  ========================== -->
 
-<title>Tarek & Rana Wedding</title>
+  <title>Tarek & Rana Wedding</title>
 
-<style>
+  <!-- =========================
+       SOCIAL MEDIA PREVIEW
+  ========================== -->
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+  <meta
+    property="og:title"
+    content="Tarek & Rana Wedding"
+  >
 
-html,
-body {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  background: #000;
-}
+  <meta
+    property="og:description"
+    content="You're invited to celebrate our special day 🤍"
+  >
+
+  <meta
+    property="og:image"
+    content="preview.jpg"
+  >
+
+  <meta
+    property="og:type"
+    content="website"
+  >
+
+  <meta
+    property="og:url"
+    content="https://zekra.link/rana-wedding"
+  >
+
+  <!-- WhatsApp / Facebook -->
+  <meta
+    name="twitter:card"
+    content="summary_large_image"
+  >
+
+  <meta
+    name="twitter:title"
+    content="Tarek & Rana Wedding"
+  >
+
+  <meta
+    name="twitter:description"
+    content="You're invited to celebrate our special day 🤍"
+  >
+
+  <meta
+    name="twitter:image"
+    content="preview.jpg"
+  >
+
+  <style>
+
+    /* =========================
+       RESET
+    ========================== */
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      min-height: 100%;
+      background: #ffffff;
+    }
+
+    body {
+      overflow-x: hidden;
+    }
 
 
-/* =========================
-   CANVA
-========================= */
+    /* =========================
+       CANVA CONTAINER
+       SAME STYLE AS CANVA EMBED
+    ========================== */
 
-#canvaFrame {
+    .canva-wrapper {
+      position: relative;
 
-  position: fixed;
+      width: 100%;
+      height: 0;
 
-  inset: 0;
+      padding-top: 380.6003%;
 
-  width: 100%;
-  height: 100%;
+      padding-bottom: 0;
 
-  border: none;
+      overflow: hidden;
 
-  display: block;
-}
+      border-radius: 8px;
 
+      margin-top: 0;
+      margin-bottom: 0;
 
-/* =========================
-   FIRST TOUCH LAYER
-========================= */
-
-#touchLayer {
-
-  position: fixed;
-
-  inset: 0;
-
-  z-index: 999998;
-
-  background: transparent;
-
-  touch-action: manipulation;
-
-}
+      will-change: transform;
+    }
 
 
-/* =========================
-   MUSIC BUTTON
-========================= */
+    /* =========================
+       CANVA IFRAME
+    ========================== */
 
-#musicButton {
+    #canvaFrame {
+      position: absolute;
 
-  position: fixed;
+      width: 100%;
+      height: 100%;
 
-  right: 18px;
-  bottom: 18px;
+      top: 0;
+      left: 0;
 
-  z-index: 999999;
+      border: none;
 
-  min-width: 82px;
-  height: 38px;
+      padding: 0;
+      margin: 0;
 
-  padding: 0 16px;
+      display: block;
+    }
 
-  border: 1px solid rgba(255,255,255,0.65);
 
-  border-radius: 30px;
+    /* =========================
+       FIRST TOUCH LAYER
+       Starts the music
+    ========================== */
 
-  background: rgba(255,255,255,0.08);
+    #touchLayer {
+      position: fixed;
 
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+      inset: 0;
 
-  color: white;
+      width: 100%;
+      height: 100%;
 
-  font-family: Arial, sans-serif;
+      background: transparent;
 
-  font-size: 12px;
+      z-index: 999999;
 
-  letter-spacing: 1.5px;
+      cursor: pointer;
+    }
 
-  font-weight: 500;
 
-  cursor: pointer;
+    /* =========================
+       PLAY / MUTE BUTTON
+    ========================== */
 
-  display: flex;
+    #soundButton {
+      position: fixed;
 
-  align-items: center;
-  justify-content: center;
+      right: 18px;
+      bottom: 18px;
 
-  -webkit-tap-highlight-color: transparent;
-}
+      z-index: 1000000;
 
-</style>
+      border: none;
+
+      background: transparent;
+
+      color: white;
+
+      font-family: Arial, sans-serif;
+
+      font-size: 12px;
+
+      letter-spacing: 1px;
+
+      cursor: pointer;
+
+      padding: 8px 10px;
+
+      text-shadow:
+        0 1px 3px rgba(0,0,0,.5);
+
+      display: none;
+    }
+
+
+    /* =========================
+       NAVIGATION OVERLAYS
+    ========================== */
+
+    .nav-button {
+      position: absolute;
+
+      z-index: 999998;
+
+      background: transparent;
+
+      border: none;
+
+      padding: 0;
+
+      margin: 0;
+
+      cursor: pointer;
+
+      display: none;
+    }
+
+
+    /* =========================
+       PAGE 1 → PAGE 2
+
+       CHANGE THESE VALUES
+       TO MATCH YOUR CANVA BUTTON
+    ========================== */
+
+    #page1Next {
+      /*
+        Example:
+
+        top: 88%;
+        left: 25%;
+        width: 50%;
+        height: 8%;
+      */
+
+      top: 88%;
+      left: 25%;
+      width: 50%;
+      height: 8%;
+    }
+
+
+    /* =========================
+       PAGE 2 → PAGE 3
+    ========================== */
+
+    #page2Next {
+      top: 88%;
+      left: 25%;
+      width: 50%;
+      height: 8%;
+    }
+
+
+    /* =========================
+       PAGE 2 → PAGE 1
+       Optional back button
+    ========================== */
+
+    #page2Back {
+      top: 5%;
+      left: 5%;
+      width: 20%;
+      height: 8%;
+    }
+
+
+    /* =========================
+       HIDE NAVIGATION WHEN NOT USED
+    ========================== */
+
+    .show {
+      display: block !important;
+    }
+
+  </style>
 
 </head>
 
@@ -122,237 +282,398 @@ body {
 <body>
 
 
-<!-- =========================
-     CANVA
-========================= -->
+  <!-- =========================
+       MUSIC
+  ========================== -->
 
-<iframe
+  <audio
+    id="song"
+    preload="auto"
+    loop
+    playsinline
+  >
+    <source
+      src="/song.mp3"
+      type="audio/mpeg"
+    >
+  </audio>
 
-  id="canvaFrame"
 
-  src="https://www.canva.com/design/DAHXDm-Q1U8/4WPheNzhMWogiVXa4VgWkg/view?embed"
+  <!-- =========================
+       CANVA
+  ========================== -->
 
-  allowfullscreen
+  <div class="canva-wrapper">
 
-  allow="fullscreen; autoplay"
+    <iframe
+      id="canvaFrame"
 
-></iframe>
+      loading="lazy"
 
+      allowfullscreen="allowfullscreen"
 
-<!-- =========================
-     SONG
-========================= -->
+      allow="fullscreen"
 
-<audio
+    ></iframe>
 
-  id="song"
 
-  src="/song.mp3"
+    <!-- =========================
+         PAGE 1 BUTTON
+    ========================== -->
 
-  preload="auto"
+    <button
+      id="page1Next"
+      class="nav-button"
+      aria-label="Next"
+    ></button>
 
-  loop
 
-></audio>
+    <!-- =========================
+         PAGE 2 BUTTONS
+    ========================== -->
 
+    <button
+      id="page2Next"
+      class="nav-button"
+      aria-label="Next"
+    ></button>
 
-<!-- =========================
-     FIRST TOUCH
-========================= -->
+    <button
+      id="page2Back"
+      class="nav-button"
+      aria-label="Back"
+    ></button>
 
-<div id="touchLayer"></div>
+  </div>
 
 
-<!-- =========================
-     MUSIC BUTTON
-========================= -->
+  <!-- =========================
+       FIRST TOUCH
+  ========================== -->
 
-<button
+  <div id="touchLayer"></div>
 
-  id="musicButton"
 
-  type="button"
+  <!-- =========================
+       SOUND BUTTON
+  ========================== -->
 
->
+  <button id="soundButton">
+    MUTE
+  </button>
 
-PLAY
 
-</button>
+  <script>
 
+    /* =========================
+       CANVA PAGES
+    ========================== */
 
+    const PAGE_1 =
+      "https://www.canva.com/design/DAHXDm-Q1U8/4WPheNzhMWogiVXa4VgWkg/view?embed";
 
-<script>
 
+    const PAGE_2 =
+      "https://www.canva.com/design/DAHXJ2qulUI/y1Ny_6cpiQN4chiQ_OMktw/view?embed";
 
-const song =
-  document.getElementById("song");
 
-const touchLayer =
-  document.getElementById("touchLayer");
+    /*
+      Add Page 3 URL here
+      when you send it
+    */
 
-const musicButton =
-  document.getElementById("musicButton");
+    const PAGE_3 =
+      "";
 
 
+    /* =========================
+       ELEMENTS
+    ========================== */
 
-/* =========================
-   START MUSIC
-========================= */
+    const song =
+      document.getElementById("song");
 
-function startMusic() {
+    const canvaFrame =
+      document.getElementById("canvaFrame");
 
-  song.volume = 1;
+    const touchLayer =
+      document.getElementById("touchLayer");
 
-  song.muted = false;
+    const soundButton =
+      document.getElementById("soundButton");
 
+    const page1Next =
+      document.getElementById("page1Next");
 
-  const promise = song.play();
+    const page2Next =
+      document.getElementById("page2Next");
 
+    const page2Back =
+      document.getElementById("page2Back");
 
-  if (promise !== undefined) {
 
-    promise
+    /* =========================
+       CURRENT PAGE
+    ========================== */
 
-      .then(() => {
+    let currentPage = 1;
 
-        musicButton.textContent = "MUTE";
 
-        /*
-          Remove transparent layer
-          AFTER audio successfully starts
-        */
+    /* =========================
+       START MUSIC
+    ========================== */
 
-        touchLayer.style.display = "none";
-
-
-        console.log(
-          "✅ MUSIC STARTED"
-        );
-
-      })
-
-      .catch(error => {
-
-        console.log(
-          "❌ AUDIO BLOCKED",
-          error
-        );
-
-      });
-
-  }
-
-}
-
-
-
-/* =========================
-   FIRST TOUCH
-========================= */
-
-touchLayer.addEventListener(
-  "touchstart",
-  function () {
-
-    startMusic();
-
-  },
-  {
-    passive: true,
-    once: true
-  }
-);
-
-
-
-/* =========================
-   FIRST CLICK
-========================= */
-
-touchLayer.addEventListener(
-  "click",
-  function () {
-
-    startMusic();
-
-  },
-  {
-    once: true
-  }
-);
-
-
-
-/* =========================
-   MUSIC BUTTON
-========================= */
-
-musicButton.addEventListener(
-  "click",
-  function (event) {
-
-    event.stopPropagation();
-
-
-    if (song.paused) {
+    function startMusic() {
 
       song.volume = 1;
-
       song.muted = false;
 
-      song.play()
-        .then(() => {
+      const promise = song.play();
 
-          musicButton.textContent =
+      if (promise !== undefined) {
+
+        promise
+          .then(() => {
+
+            console.log(
+              "✅ Music started"
+            );
+
+            soundButton.textContent =
+              "MUTE";
+
+            soundButton.style.display =
+              "block";
+
+          })
+          .catch(error => {
+
+            console.log(
+              "❌ Audio blocked:",
+              error
+            );
+
+          });
+
+      }
+
+    }
+
+
+    /* =========================
+       SHOW PAGE
+    ========================== */
+
+    function showPage(page) {
+
+      currentPage = page;
+
+
+      /* Hide all navigation */
+
+      page1Next.classList.remove("show");
+
+      page2Next.classList.remove("show");
+
+      page2Back.classList.remove("show");
+
+
+      /* =========================
+         PAGE 1
+      ========================== */
+
+      if (page === 1) {
+
+        canvaFrame.src = PAGE_1;
+
+        page1Next.classList.add("show");
+
+      }
+
+
+      /* =========================
+         PAGE 2
+      ========================== */
+
+      else if (page === 2) {
+
+        canvaFrame.src = PAGE_2;
+
+        page2Next.classList.add("show");
+
+        page2Back.classList.add("show");
+
+      }
+
+
+      /* =========================
+         PAGE 3
+      ========================== */
+
+      else if (page === 3) {
+
+        if (PAGE_3 !== "") {
+
+          canvaFrame.src = PAGE_3;
+
+        }
+
+      }
+
+    }
+
+
+    /* =========================
+       FIRST TOUCH
+    ========================== */
+
+    function firstInteraction() {
+
+      startMusic();
+
+      showPage(1);
+
+      /*
+        Remove the transparent
+        first-touch layer
+      */
+
+      touchLayer.style.display =
+        "none";
+
+    }
+
+
+    /* =========================
+       TOUCH / CLICK
+    ========================== */
+
+    touchLayer.addEventListener(
+      "touchstart",
+      firstInteraction,
+      {
+        once: true,
+        passive: true
+      }
+    );
+
+
+    touchLayer.addEventListener(
+      "click",
+      firstInteraction,
+      {
+        once: true
+      }
+    );
+
+
+    /* =========================
+       PAGE 1 → PAGE 2
+    ========================== */
+
+    page1Next.addEventListener(
+      "click",
+      function(e) {
+
+        e.preventDefault();
+
+        showPage(2);
+
+      }
+    );
+
+
+    /* =========================
+       PAGE 2 → PAGE 3
+    ========================== */
+
+    page2Next.addEventListener(
+      "click",
+      function(e) {
+
+        e.preventDefault();
+
+        if (PAGE_3 !== "") {
+
+          showPage(3);
+
+        }
+
+      }
+    );
+
+
+    /* =========================
+       PAGE 2 → PAGE 1
+    ========================== */
+
+    page2Back.addEventListener(
+      "click",
+      function(e) {
+
+        e.preventDefault();
+
+        showPage(1);
+
+      }
+    );
+
+
+    /* =========================
+       MUTE / UNMUTE
+    ========================== */
+
+    soundButton.addEventListener(
+      "click",
+      function(e) {
+
+        e.preventDefault();
+
+        e.stopPropagation();
+
+
+        if (song.muted) {
+
+          song.muted = false;
+
+          song.play();
+
+          soundButton.textContent =
             "MUTE";
 
-        });
+        }
 
-    }
+        else {
 
-    else {
+          song.muted = true;
 
-      song.pause();
+          soundButton.textContent =
+            "PLAY";
 
-      musicButton.textContent =
-        "PLAY";
+        }
 
-    }
-
-  }
-);
+      }
+    );
 
 
+    /* =========================
+       PREVENT DOUBLE AUDIO
+    ========================== */
 
-/* =========================
-   AUDIO EVENTS
-========================= */
+    song.addEventListener(
+      "ended",
+      function() {
 
-song.addEventListener(
-  "play",
-  function () {
+        song.currentTime = 0;
 
-    musicButton.textContent =
-      "MUTE";
+        song.play();
 
-  }
-);
+      }
+    );
 
-
-song.addEventListener(
-  "pause",
-  function () {
-
-    musicButton.textContent =
-      "PLAY";
-
-  }
-);
-
-
-</script>
-
+  </script>
 
 </body>
 
 </html>
+```
