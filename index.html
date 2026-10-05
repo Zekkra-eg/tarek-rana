@@ -98,21 +98,13 @@
       justify-content: center;
 
       -webkit-tap-highlight-color: transparent;
-
-      transition: 0.2s ease;
     }
 
 
     #musicButton:active {
-
       transform: scale(0.95);
     }
 
-
-    #musicButton:hover {
-
-      background: rgba(255,255,255,0.15);
-    }
 
   </style>
 
@@ -161,15 +153,10 @@
   ========================= -->
 
   <button
-
     id="musicButton"
-
     type="button"
-
   >
-
     PLAY
-
   </button>
 
 
@@ -184,22 +171,20 @@
       document.getElementById("musicButton");
 
 
+    let musicStarted = false;
+
+
     /* =========================
        PLAY SONG
-       SAFARI VERSION
+       SAFARI / IOS
     ========================= */
 
     function playSongFromGesture() {
 
-      /*
-        IMPORTANT:
+      if (musicStarted) {
+        return;
+      }
 
-        Do NOT call song.load()
-
-        Safari needs play()
-        to happen directly from
-        the user gesture.
-      */
 
       song.volume = 1;
 
@@ -215,12 +200,13 @@
 
           .then(() => {
 
-            console.log(
-              "✅ Safari: song started"
-            );
+            musicStarted = true;
 
-            musicButton.textContent =
-              "MUTE";
+            musicButton.textContent = "MUTE";
+
+            console.log(
+              "✅ Song started"
+            );
 
           })
 
@@ -238,6 +224,58 @@
     }
 
 
+    /* =========================
+       FIRST TOUCH
+    ========================= */
+
+    document.addEventListener(
+      "touchstart",
+      function () {
+
+        playSongFromGesture();
+
+      },
+      {
+        passive: true,
+        once: true
+      }
+    );
+
+
+    /* =========================
+       FIRST SCROLL
+    ========================= */
+
+    document.addEventListener(
+      "scroll",
+      function () {
+
+        playSongFromGesture();
+
+      },
+      {
+        passive: true,
+        once: true
+      }
+    );
+
+
+    /* =========================
+       DESKTOP CLICK
+    ========================= */
+
+    document.addEventListener(
+      "click",
+      function () {
+
+        playSongFromGesture();
+
+      },
+      {
+        once: true
+      }
+    );
+
 
     /* =========================
        MUSIC BUTTON
@@ -245,23 +283,38 @@
 
     musicButton.addEventListener(
       "click",
-      function () {
+      function (event) {
+
+        event.stopPropagation();
+
 
         if (song.paused) {
 
-          /*
-            PLAY مباشرة من gesture
-          */
+          song.volume = 1;
 
-          playSongFromGesture();
+          song.muted = false;
+
+          song.play()
+            .then(() => {
+
+              musicStarted = true;
+
+              musicButton.textContent =
+                "MUTE";
+
+            })
+            .catch(error => {
+
+              console.log(
+                "Audio error:",
+                error
+              );
+
+            });
 
         }
 
         else {
-
-          /*
-            MUTE / PAUSE
-          */
 
           song.pause();
 
@@ -272,7 +325,6 @@
 
       }
     );
-
 
 
     /* =========================
