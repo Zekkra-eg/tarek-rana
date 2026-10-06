@@ -12,9 +12,8 @@
 
   <title>Tarek & Rana Wedding</title>
 
-
   <!-- =========================
-       SOCIAL MEDIA PREVIEW
+       SOCIAL PREVIEW
   ========================== -->
 
   <meta
@@ -75,6 +74,10 @@
 
   <style>
 
+    /* =========================
+       RESET
+    ========================== */
+
     * {
       margin: 0;
       padding: 0;
@@ -99,29 +102,24 @@
 
 
     /* =========================
-       INVITATION WRAPPER
+       INVITATION
     ========================== */
 
     #invitation {
       position: relative;
-
       width: 100%;
-
       height: auto;
-
       background: #000;
-
       overflow: hidden;
     }
 
 
     /* =========================
-       CANVA IFRAME
+       CANVA
     ========================== */
 
     #canvaFrame {
       position: absolute;
-
       top: 0;
       left: 0;
 
@@ -129,7 +127,6 @@
       height: 100%;
 
       border: none;
-
       display: block;
 
       z-index: 1;
@@ -137,10 +134,11 @@
 
 
     /* =========================
-       HOTSPOTS
+       CLICKABLE BUTTONS
     ========================== */
 
     .hotspot {
+
       position: absolute;
 
       width: 180px;
@@ -149,7 +147,6 @@
       background: transparent;
 
       border: none;
-
       padding: 0;
       margin: 0;
 
@@ -167,6 +164,7 @@
 
     .hotspot:focus,
     .hotspot:active {
+
       outline: none;
 
       background: transparent;
@@ -178,6 +176,7 @@
     ========================== */
 
     #musicButton {
+
       position: fixed;
 
       right: 18px;
@@ -197,7 +196,6 @@
       background: rgba(255, 255, 255, 0.08);
 
       backdrop-filter: blur(8px);
-
       -webkit-backdrop-filter: blur(8px);
 
       color: white;
@@ -215,7 +213,6 @@
       display: flex;
 
       align-items: center;
-
       justify-content: center;
 
       -webkit-tap-highlight-color: transparent;
@@ -223,20 +220,23 @@
 
 
     #musicButton:focus {
+
       outline: none;
     }
 
 
     #musicButton:hover {
+
       background: rgba(255, 255, 255, 0.14);
     }
 
 
     /* =========================
-       FIRST TOUCH MUSIC LAYER
+       FIRST TOUCH LAYER
     ========================== */
 
     #touchLayer {
+
       position: fixed;
 
       inset: 0;
@@ -257,27 +257,20 @@
 
 
   <!-- =========================
-       HOME
+       INVITATION
   ========================== -->
 
   <main id="invitation">
 
-
     <iframe
       id="canvaFrame"
-
       src="https://www.canva.com/design/DAHXDm-Q1U8/4WPheNzhMWogiVXa4VgWkg/view?embed"
-
       allowfullscreen
-
       allow="fullscreen; autoplay"
-
     ></iframe>
 
 
-    <!-- =========================
-         HOME → PG 1
-    ========================== -->
+    <!-- HOME → PG 1 -->
 
     <button
       class="hotspot"
@@ -286,9 +279,7 @@
     ></button>
 
 
-    <!-- =========================
-         HOME → PG 2
-    ========================== -->
+    <!-- HOME → PG 2 -->
 
     <button
       class="hotspot"
@@ -296,8 +287,8 @@
       aria-label="Open PG 2"
     ></button>
 
-
   </main>
+
 
 
   <!-- =========================
@@ -312,7 +303,7 @@
   ></audio>
 
 
-  <!-- FIRST TOUCH -->
+  <!-- FIRST INTERACTION -->
 
   <div id="touchLayer"></div>
 
@@ -327,6 +318,7 @@
   </button>
 
 
+
   <script>
 
     /* =========================
@@ -336,29 +328,24 @@
     const invitation =
       document.getElementById("invitation");
 
-
     const hotspot1 =
       document.getElementById("hotspot1");
-
 
     const hotspot2 =
       document.getElementById("hotspot2");
 
-
     const song =
       document.getElementById("song");
 
-
     const touchLayer =
       document.getElementById("touchLayer");
-
 
     const musicButton =
       document.getElementById("musicButton");
 
 
     /* =========================
-       HOME DESIGN SIZE
+       DESIGN SIZE
     ========================== */
 
     const DESIGN_WIDTH = 1366;
@@ -367,12 +354,11 @@
 
 
     /* =========================
-       VERCEL PAGES
+       PAGE URLS
     ========================== */
 
     const PG1_URL =
       "https://zekra.link/t-r";
-
 
     const PG2_URL =
       "https://zekra.link/t-r/page-2";
@@ -388,24 +374,20 @@
 
 
     /* =========================
-       HOME HOTSPOTS
+       HOTSPOT POSITIONS
     ========================== */
 
     const homeHotspots = [
 
       {
         element: hotspot1,
-
         x: 979.4,
-
         y: 1627.4
       },
 
       {
         element: hotspot2,
-
         x: 979.4,
-
         y: 2004.5
       }
 
@@ -421,15 +403,12 @@
       const displayedWidth =
         invitation.clientWidth;
 
-
       const displayedHeight =
         displayedWidth *
         (HOME_HEIGHT / DESIGN_WIDTH);
 
-
       invitation.style.height =
         displayedHeight + "px";
-
     }
 
 
@@ -442,46 +421,37 @@
       const displayedWidth =
         invitation.clientWidth;
 
-
       const scale =
-        displayedWidth /
-        DESIGN_WIDTH;
+        displayedWidth / DESIGN_WIDTH;
 
 
-      homeHotspots.forEach(
-        function(hotspot) {
+      homeHotspots.forEach(function(hotspot) {
 
-          const button =
-            hotspot.element;
-
-
-          button.style.left =
-            (hotspot.x * scale) +
-            "px";
+        const button =
+          hotspot.element;
 
 
-          button.style.top =
-            (hotspot.y * scale) +
-            "px";
+        button.style.left =
+          (hotspot.x * scale) + "px";
 
 
-          button.style.width =
-            (HOTSPOT_WIDTH * scale) +
-            "px";
+        button.style.top =
+          (hotspot.y * scale) + "px";
 
 
-          button.style.height =
-            (HOTSPOT_HEIGHT * scale) +
-            "px";
+        button.style.width =
+          (HOTSPOT_WIDTH * scale) + "px";
 
-        }
-      );
 
+        button.style.height =
+          (HOTSPOT_HEIGHT * scale) + "px";
+
+      });
     }
 
 
     /* =========================
-       INITIAL LAYOUT
+       INITIALIZE
     ========================== */
 
     setHomeSize();
@@ -490,7 +460,7 @@
 
 
     /* =========================
-       RESPONSIVE
+       RESIZE
     ========================== */
 
     window.addEventListener(
@@ -506,7 +476,8 @@
 
 
     /* =========================
-       HOME → PG 1
+       OPEN PG 1
+       NEW TAB
     ========================== */
 
     hotspot1.addEventListener(
@@ -517,16 +488,18 @@
 
         event.stopPropagation();
 
-
-        window.location.href =
-          PG1_URL;
+        window.open(
+          PG1_URL,
+          "_blank"
+        );
 
       }
     );
 
 
     /* =========================
-       HOME → PG 2
+       OPEN PG 2
+       NEW TAB
     ========================== */
 
     hotspot2.addEventListener(
@@ -537,16 +510,17 @@
 
         event.stopPropagation();
 
-
-        window.location.href =
-          PG2_URL;
+        window.open(
+          PG2_URL,
+          "_blank"
+        );
 
       }
     );
 
 
     /* =========================
-       MUSIC
+       START MUSIC
     ========================== */
 
     function startMusic() {
@@ -563,28 +537,23 @@
       if (promise !== undefined) {
 
         promise
-          .then(
-            function() {
+          .then(function() {
 
-              musicButton.textContent =
-                "MUTE";
+            musicButton.textContent =
+              "MUTE";
 
+            touchLayer.style.display =
+              "none";
 
-              touchLayer.style.display =
-                "none";
+          })
+          .catch(function(error) {
 
-            }
-          )
-          .catch(
-            function(error) {
+            console.log(
+              "Audio blocked:",
+              error
+            );
 
-              console.log(
-                "Audio blocked:",
-                error
-              );
-
-            }
-          );
+          });
 
       }
 
@@ -597,34 +566,28 @@
 
     touchLayer.addEventListener(
       "touchstart",
-
       function() {
 
         startMusic();
 
       },
-
       {
         passive: true,
         once: true
       }
-
     );
 
 
     touchLayer.addEventListener(
       "click",
-
       function() {
 
         startMusic();
 
       },
-
       {
         once: true
       }
-
     );
 
 
@@ -634,7 +597,6 @@
 
     musicButton.addEventListener(
       "click",
-
       function(event) {
 
         event.stopPropagation();
@@ -647,27 +609,22 @@
           song.muted = false;
 
 
-          song.play()
+          song
+            .play()
+            .then(function() {
 
-            .then(
-              function() {
+              musicButton.textContent =
+                "MUTE";
 
-                musicButton.textContent =
-                  "MUTE";
+            })
+            .catch(function(error) {
 
-              }
-            )
+              console.log(
+                "Audio blocked:",
+                error
+              );
 
-            .catch(
-              function(error) {
-
-                console.log(
-                  "Audio blocked:",
-                  error
-                );
-
-              }
-            );
+            });
 
         }
 
@@ -675,24 +632,21 @@
 
           song.pause();
 
-
           musicButton.textContent =
             "PLAY";
 
         }
 
       }
-
     );
 
 
     /* =========================
-       AUDIO EVENTS
+       MUSIC EVENTS
     ========================== */
 
     song.addEventListener(
       "play",
-
       function() {
 
         musicButton.textContent =
@@ -704,7 +658,6 @@
 
     song.addEventListener(
       "pause",
-
       function() {
 
         musicButton.textContent =
