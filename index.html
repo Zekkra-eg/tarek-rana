@@ -104,9 +104,13 @@
 
     #invitation {
       position: relative;
+
       width: 100%;
+
       height: auto;
+
       background: #000;
+
       overflow: hidden;
     }
 
@@ -117,6 +121,7 @@
 
     #canvaFrame {
       position: absolute;
+
       top: 0;
       left: 0;
 
@@ -124,6 +129,7 @@
       height: 100%;
 
       border: none;
+
       display: block;
 
       z-index: 1;
@@ -141,6 +147,7 @@
       height: 160px;
 
       background: transparent;
+
       border: none;
 
       padding: 0;
@@ -161,6 +168,7 @@
     .hotspot:focus,
     .hotspot:active {
       outline: none;
+
       background: transparent;
     }
 
@@ -189,6 +197,7 @@
       background: rgba(255, 255, 255, 0.08);
 
       backdrop-filter: blur(8px);
+
       -webkit-backdrop-filter: blur(8px);
 
       color: white;
@@ -206,6 +215,7 @@
       display: flex;
 
       align-items: center;
+
       justify-content: center;
 
       -webkit-tap-highlight-color: transparent;
@@ -223,7 +233,7 @@
 
 
     /* =========================
-       FIRST-TOUCH MUSIC LAYER
+       FIRST TOUCH MUSIC LAYER
     ========================== */
 
     #touchLayer {
@@ -247,16 +257,21 @@
 
 
   <!-- =========================
-       INVITATION
+       HOME
   ========================== -->
 
   <main id="invitation">
 
+
     <iframe
       id="canvaFrame"
+
       src="https://www.canva.com/design/DAHXDm-Q1U8/4WPheNzhMWogiVXa4VgWkg/view?embed"
+
       allowfullscreen
+
       allow="fullscreen; autoplay"
+
     ></iframe>
 
 
@@ -280,6 +295,7 @@
       id="hotspot2"
       aria-label="Open PG 2"
     ></button>
+
 
   </main>
 
@@ -320,50 +336,39 @@
     const invitation =
       document.getElementById("invitation");
 
-    const canvaFrame =
-      document.getElementById("canvaFrame");
 
     const hotspot1 =
       document.getElementById("hotspot1");
 
+
     const hotspot2 =
       document.getElementById("hotspot2");
+
 
     const song =
       document.getElementById("song");
 
+
     const touchLayer =
       document.getElementById("touchLayer");
+
 
     const musicButton =
       document.getElementById("musicButton");
 
 
     /* =========================
-       DESIGN WIDTH
+       HOME DESIGN SIZE
     ========================== */
 
     const DESIGN_WIDTH = 1366;
 
-
-    /* =========================
-       PAGE HEIGHTS
-    ========================== */
-
     const HOME_HEIGHT = 5199;
 
-    const PG1_HEIGHT = 6976;
-
-    const PG2_HEIGHT = 3966;
-
 
     /* =========================
-       CANVA URLS
+       VERCEL PAGES
     ========================== */
-
-    const HOME_URL =
-      "https://www.canva.com/design/DAHXDm-Q1U8/4WPheNzhMWogiVXa4VgWkg/view?embed";
-
 
     const PG1_URL =
       "https://zekra.link/t-r";
@@ -371,17 +376,6 @@
 
     const PG2_URL =
       "https://zekra.link/t-r/page-2";
-
-
-    /* =========================
-       CURRENT PAGE
-       
-       0 = HOME
-       1 = PG 1
-       2 = PG 2
-    ========================== */
-
-    let currentPage = 0;
 
 
     /* =========================
@@ -419,10 +413,10 @@
 
 
     /* =========================
-       SET PAGE SIZE
+       SET HOME SIZE
     ========================== */
 
-    function setPageSize(pageHeight) {
+    function setHomeSize() {
 
       const displayedWidth =
         invitation.clientWidth;
@@ -430,7 +424,7 @@
 
       const displayedHeight =
         displayedWidth *
-        (pageHeight / DESIGN_WIDTH);
+        (HOME_HEIGHT / DESIGN_WIDTH);
 
 
       invitation.style.height =
@@ -440,7 +434,7 @@
 
 
     /* =========================
-       POSITION HOME HOTSPOTS
+       POSITION HOTSPOTS
     ========================== */
 
     function positionHotspots() {
@@ -450,109 +444,49 @@
 
 
       const scale =
-        displayedWidth / DESIGN_WIDTH;
+        displayedWidth /
+        DESIGN_WIDTH;
 
 
-      homeHotspots.forEach((hotspot) => {
+      homeHotspots.forEach(
+        function(hotspot) {
 
-        const button =
-          hotspot.element;
-
-
-        button.style.left =
-          (hotspot.x * scale) + "px";
+          const button =
+            hotspot.element;
 
 
-        button.style.top =
-          (hotspot.y * scale) + "px";
+          button.style.left =
+            (hotspot.x * scale) +
+            "px";
 
 
-        button.style.width =
-          (HOTSPOT_WIDTH * scale) + "px";
+          button.style.top =
+            (hotspot.y * scale) +
+            "px";
 
 
-        button.style.height =
-          (HOTSPOT_HEIGHT * scale) + "px";
-
-      });
-
-    }
+          button.style.width =
+            (HOTSPOT_WIDTH * scale) +
+            "px";
 
 
-    /* =========================
-       SHOW / HIDE HOTSPOTS
-    ========================== */
+          button.style.height =
+            (HOTSPOT_HEIGHT * scale) +
+            "px";
 
-    function updateHotspots() {
-
-      if (currentPage === 0) {
-
-        hotspot1.style.display =
-          "block";
-
-        hotspot2.style.display =
-          "block";
-
-      }
-
-      else {
-
-        hotspot1.style.display =
-          "none";
-
-        hotspot2.style.display =
-          "none";
-
-      }
+        }
+      );
 
     }
 
 
     /* =========================
-       UPDATE PAGE LAYOUT
+       INITIAL LAYOUT
     ========================== */
 
-    function updatePageLayout() {
+    setHomeSize();
 
-      if (currentPage === 0) {
-
-        setPageSize(
-          HOME_HEIGHT
-        );
-
-      }
-
-
-      else if (currentPage === 1) {
-
-        setPageSize(
-          PG1_HEIGHT
-        );
-
-      }
-
-
-      else if (currentPage === 2) {
-
-        setPageSize(
-          PG2_HEIGHT
-        );
-
-      }
-
-
-      positionHotspots();
-
-      updateHotspots();
-
-    }
-
-
-    /* =========================
-       INITIAL HOME
-    ========================== */
-
-    updatePageLayout();
+    positionHotspots();
 
 
     /* =========================
@@ -561,61 +495,17 @@
 
     window.addEventListener(
       "resize",
-      updatePageLayout
+      function() {
+
+        setHomeSize();
+
+        positionHotspots();
+
+      }
     );
 
 
     /* =========================
-       CHANGE PAGE
-    ========================== */
-
-    function changePage(
-      url,
-      pageNumber,
-      pageHeight
-    ) {
-
-      currentPage =
-        pageNumber;
-
-
-      /*
-        Change the wrapper size
-        BEFORE loading the new Canva.
-      */
-
-      setPageSize(
-        pageHeight
-      );
-
-
-      updateHotspots();
-
-
-      /*
-        Change Canva design.
-      */
-
-      canvaFrame.src =
-        url;
-
-
-      /*
-        Always start the new design
-        from the top.
-      */
-
-      window.scrollTo({
-        top: 0,
-        behavior: "instant"
-      });
-
-    }
-
-
-    /* =========================
-       FIRST HOME BUTTON
-       
        HOME → PG 1
     ========================== */
 
@@ -628,19 +518,14 @@
         event.stopPropagation();
 
 
-        changePage(
-          PG1_URL,
-          1,
-          PG1_HEIGHT
-        );
+        window.location.href =
+          PG1_URL;
 
       }
     );
 
 
     /* =========================
-       SECOND HOME BUTTON
-       
        HOME → PG 2
     ========================== */
 
@@ -653,11 +538,8 @@
         event.stopPropagation();
 
 
-        changePage(
-          PG2_URL,
-          2,
-          PG2_HEIGHT
-        );
+        window.location.href =
+          PG2_URL;
 
       }
     );
@@ -681,24 +563,28 @@
       if (promise !== undefined) {
 
         promise
-          .then(() => {
+          .then(
+            function() {
 
-            musicButton.textContent =
-              "MUTE";
+              musicButton.textContent =
+                "MUTE";
 
 
-            touchLayer.style.display =
-              "none";
+              touchLayer.style.display =
+                "none";
 
-          })
-          .catch((error) => {
+            }
+          )
+          .catch(
+            function(error) {
 
-            console.log(
-              "Audio blocked:",
-              error
-            );
+              console.log(
+                "Audio blocked:",
+                error
+              );
 
-          });
+            }
+          );
 
       }
 
@@ -711,28 +597,34 @@
 
     touchLayer.addEventListener(
       "touchstart",
+
       function() {
 
         startMusic();
 
       },
+
       {
         passive: true,
         once: true
       }
+
     );
 
 
     touchLayer.addEventListener(
       "click",
+
       function() {
 
         startMusic();
 
       },
+
       {
         once: true
       }
+
     );
 
 
@@ -742,6 +634,7 @@
 
     musicButton.addEventListener(
       "click",
+
       function(event) {
 
         event.stopPropagation();
@@ -755,20 +648,26 @@
 
 
           song.play()
-            .then(() => {
 
-              musicButton.textContent =
-                "MUTE";
+            .then(
+              function() {
 
-            })
-            .catch((error) => {
+                musicButton.textContent =
+                  "MUTE";
 
-              console.log(
-                "Audio blocked:",
-                error
-              );
+              }
+            )
 
-            });
+            .catch(
+              function(error) {
+
+                console.log(
+                  "Audio blocked:",
+                  error
+                );
+
+              }
+            );
 
         }
 
@@ -783,6 +682,7 @@
         }
 
       }
+
     );
 
 
@@ -792,6 +692,7 @@
 
     song.addEventListener(
       "play",
+
       function() {
 
         musicButton.textContent =
@@ -803,6 +704,7 @@
 
     song.addEventListener(
       "pause",
+
       function() {
 
         musicButton.textContent =
