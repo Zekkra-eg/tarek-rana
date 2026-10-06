@@ -75,10 +75,6 @@
 
   <style>
 
-    /* =========================
-       RESET
-    ========================= */
-
     * {
       margin: 0;
       padding: 0;
@@ -88,46 +84,30 @@
 
     html,
     body {
-
       width: 100%;
-
       min-height: 100%;
-
       margin: 0;
-
       padding: 0;
-
       background: #000;
-
     }
 
 
     body {
-
       overflow-x: hidden;
-
       overflow-y: auto;
-
     }
 
 
     /* =========================
-       CANVA WRAPPER
-
-       Original design:
-       1366 × 5199
+       INVITATION WRAPPER
     ========================== */
 
     #invitation {
-
       position: relative;
-
       width: 100%;
-
-      aspect-ratio: 1366 / 5199;
-
+      height: auto;
       background: #000;
-
+      overflow: hidden;
     }
 
 
@@ -136,9 +116,7 @@
     ========================== */
 
     #canvaFrame {
-
       position: absolute;
-
       top: 0;
       left: 0;
 
@@ -146,41 +124,26 @@
       height: 100%;
 
       border: none;
-
       display: block;
 
       z-index: 1;
-
     }
 
 
     /* =========================
-       TRANSPARENT HOTSPOTS
+       HOTSPOTS
     ========================== */
 
     .hotspot {
-
       position: absolute;
 
-      /*
-        Original element:
-        87.1 × 78.4
-
-        Increased slightly for easier
-        tapping on mobile.
-      */
-
-      width: 110px;
-
-      height: 100px;
-
+      width: 180px;
+      height: 160px;
 
       background: transparent;
-
       border: none;
 
       padding: 0;
-
       margin: 0;
 
       cursor: pointer;
@@ -192,17 +155,13 @@
       -webkit-tap-highlight-color: transparent;
 
       touch-action: manipulation;
-
     }
 
 
     .hotspot:focus,
     .hotspot:active {
-
       outline: none;
-
       background: transparent;
-
     }
 
 
@@ -211,39 +170,28 @@
     ========================== */
 
     #musicButton {
-
       position: fixed;
 
       right: 18px;
-
       bottom: 18px;
 
       z-index: 999999;
 
-
       min-width: 82px;
-
       height: 38px;
 
-
       padding: 0 16px;
-
 
       border: 1px solid rgba(255, 255, 255, 0.65);
 
       border-radius: 30px;
 
-
       background: rgba(255, 255, 255, 0.08);
 
-
       backdrop-filter: blur(8px);
-
       -webkit-backdrop-filter: blur(8px);
 
-
       color: white;
-
 
       font-family: Arial, sans-serif;
 
@@ -253,42 +201,32 @@
 
       font-weight: 500;
 
-
       cursor: pointer;
-
 
       display: flex;
 
       align-items: center;
-
       justify-content: center;
 
-
       -webkit-tap-highlight-color: transparent;
-
     }
 
 
     #musicButton:focus {
-
       outline: none;
-
     }
 
 
     #musicButton:hover {
-
       background: rgba(255, 255, 255, 0.14);
-
     }
 
 
     /* =========================
-       FIRST TOUCH LAYER
+       FIRST-TOUCH MUSIC LAYER
     ========================== */
 
     #touchLayer {
-
       position: fixed;
 
       inset: 0;
@@ -298,7 +236,6 @@
       background: transparent;
 
       touch-action: manipulation;
-
     }
 
   </style>
@@ -315,64 +252,32 @@
 
   <main id="invitation">
 
-
-    <!-- =========================
-         CANVA
-    ========================== -->
-
     <iframe
-
       id="canvaFrame"
-
       src="https://www.canva.com/design/DAHXDm-Q1U8/4WPheNzhMWogiVXa4VgWkg/view?embed"
-
       allowfullscreen
-
       allow="fullscreen; autoplay"
-
     ></iframe>
 
 
-
-    <!-- =========================
-         HOTSPOT 1
-
-         X = 979.4
-         Y = 1627.4
-    ========================== -->
+    <!-- PAGE 1 HOTSPOT -->
 
     <button
-
       class="hotspot"
-
       id="hotspot1"
-
-      aria-label="Button 1"
-
+      aria-label="Open page 2"
     ></button>
 
 
-
-    <!-- =========================
-         HOTSPOT 2
-
-         X = 979.4
-         Y = 2004.5
-    ========================== -->
+    <!-- PAGE 2 HOTSPOT -->
 
     <button
-
       class="hotspot"
-
       id="hotspot2"
-
-      aria-label="Button 2"
-
+      aria-label="Open page 2"
     ></button>
-
 
   </main>
-
 
 
   <!-- =========================
@@ -380,49 +285,33 @@
   ========================== -->
 
   <audio
-
     id="song"
-
     src="/song.mp3"
-
     preload="auto"
-
     loop
-
   ></audio>
 
 
-
-  <!-- =========================
-       FIRST TOUCH
-  ========================== -->
+  <!-- FIRST TOUCH -->
 
   <div id="touchLayer"></div>
 
 
-
-  <!-- =========================
-       MUSIC BUTTON
-  ========================== -->
+  <!-- MUSIC BUTTON -->
 
   <button
-
     id="musicButton"
-
     type="button"
-
   >
     PLAY
   </button>
 
 
-
   <script>
-
 
     /* =========================
        ELEMENTS
-    ========================= */
+    ========================== */
 
     const invitation =
       document.getElementById("invitation");
@@ -446,78 +335,94 @@
       document.getElementById("musicButton");
 
 
-
     /* =========================
-       ORIGINAL CANVA SIZE
-    ========================= */
+       DESIGN SIZES
+    ========================== */
 
     const DESIGN_WIDTH = 1366;
 
-    const DESIGN_HEIGHT = 5199;
+    const PAGE_1_HEIGHT = 5199;
 
+    const PAGE_2_HEIGHT = 6976;
 
 
     /* =========================
-       ORIGINAL HOTSPOT SIZE
-    ========================= */
+       CANVA URLS
+    ========================== */
 
-    const ORIGINAL_WIDTH = 87.1;
-
-    const ORIGINAL_HEIGHT = 78.4;
-
+    const PAGE_1_URL =
+      "https://www.canva.com/design/DAHXJ2qulUI/y1Ny_6cpiQN4chiQ_OMktw/view?embed";
 
 
     /*
-      Slightly larger than the original.
-
-      110 × 100 gives easier
-      touch interaction.
+      Replace this with the real Canva
+      URL of the second design.
     */
+
+    const PAGE_2_URL =
+      "https://www.canva.com/design/DAHXMbpo0t0/wRemkdE1Ugs4PvQncVCwWA/view?embed";
+
+
+    /* =========================
+       CURRENT PAGE
+    ========================== */
+
+    let currentPage = 1;
+
+
+    /* =========================
+       HOTSPOT SIZE
+    ========================== */
 
     const HOTSPOT_WIDTH = 180;
 
     const HOTSPOT_HEIGHT = 160;
 
 
-
     /* =========================
-       HOTSPOT DATA
-    ========================= */
+       HOTSPOT POSITIONS
+    ========================== */
 
-    const hotspots = [
+    /*
+      These coordinates are based
+      on the original 1366px design.
+    */
+
+    const PAGE_1_HOTSPOTS = [
 
       {
         element: hotspot1,
 
         x: 979.4,
-
         y: 1627.4
-
       },
 
       {
         element: hotspot2,
 
         x: 979.4,
-
         y: 2004.5
-
       }
 
     ];
 
 
-
     /* =========================
-       PLACEHOLDER URLS
-    ========================= */
+       SET PAGE SIZE
+    ========================== */
 
-    const PLACEHOLDER_1 =
-      "https://www.canva.com/design/DAHXJ2qulUI/y1Ny_6cpiQN4chiQ_OMktw/view?embed";
+    function setPageSize(pageHeight) {
 
-    const PLACEHOLDER_2 =
-      "https://www.canva.com/design/DAHXJ2qulUI/y1Ny_6cpiQN4chiQ_OMktw/view?embed";
+      const width =
+        invitation.clientWidth;
 
+      const height =
+        width * (pageHeight / DESIGN_WIDTH);
+
+      invitation.style.height =
+        height + "px";
+
+    }
 
 
     /* =========================
@@ -526,55 +431,27 @@
 
     function positionHotspots() {
 
-
-      /*
-        Current displayed width
-        of the 1366px design.
-      */
-
       const displayedWidth =
         invitation.clientWidth;
 
-
-      /*
-        Scale from original Canva
-        coordinates to displayed size.
-      */
 
       const scale =
         displayedWidth / DESIGN_WIDTH;
 
 
-
-      hotspots.forEach((hotspot) => {
-
+      PAGE_1_HOTSPOTS.forEach((hotspot) => {
 
         const button =
           hotspot.element;
 
 
-
-        /*
-          X position
-        */
-
         button.style.left =
           (hotspot.x * scale) + "px";
 
 
-
-        /*
-          Y position
-        */
-
         button.style.top =
           (hotspot.y * scale) + "px";
 
-
-
-        /*
-          Scaled clickable area
-        */
 
         button.style.width =
           (HOTSPOT_WIDTH * scale) + "px";
@@ -583,107 +460,129 @@
         button.style.height =
           (HOTSPOT_HEIGHT * scale) + "px";
 
-
       });
 
     }
 
 
-
     /* =========================
-       POSITION INIT
+       UPDATE PAGE
     ========================== */
 
-    positionHotspots();
+    function updatePageLayout() {
+
+      if (currentPage === 1) {
+
+        setPageSize(
+          PAGE_1_HEIGHT
+        );
+
+      }
 
 
+      if (currentPage === 2) {
 
-    /* =========================
-       RESIZE
-    ========================== */
+        setPageSize(
+          PAGE_2_HEIGHT
+        );
 
-    window.addEventListener(
-
-      "resize",
-
-      positionHotspots
-
-    );
+      }
 
 
-
-    /* =========================
-       CHANGE IFRAME
-    ========================== */
-
-    function changeIframe(url) {
-
-      canvaFrame.src = url;
+      positionHotspots();
 
     }
 
 
+    /* =========================
+       INITIAL LAYOUT
+    ========================== */
+
+    updatePageLayout();
+
+
+    window.addEventListener(
+      "resize",
+      updatePageLayout
+    );
+
+
+    /* =========================
+       CHANGE CANVA PAGE
+    ========================== */
+
+    function changePage(
+      url,
+      pageNumber
+    ) {
+
+      currentPage =
+        pageNumber;
+
+
+      canvaFrame.src =
+        url;
+
+
+      updatePageLayout();
+
+    }
+
 
     /* =========================
        HOTSPOT 1
+       PAGE 1 → PAGE 2
     ========================== */
 
     hotspot1.addEventListener(
-
       "click",
-
-      function (event) {
+      function(event) {
 
         event.preventDefault();
 
         event.stopPropagation();
 
 
-        changeIframe(
-
-          PLACEHOLDER_1
-
+        changePage(
+          PAGE_2_URL,
+          2
         );
 
       }
-
     );
-
 
 
     /* =========================
        HOTSPOT 2
+       PAGE 2 → PAGE 2
+       
+       Change this later to
+       another page if needed.
     ========================== */
 
     hotspot2.addEventListener(
-
       "click",
-
-      function (event) {
+      function(event) {
 
         event.preventDefault();
 
         event.stopPropagation();
 
 
-        changeIframe(
-
-          PLACEHOLDER_2
-
+        changePage(
+          PAGE_2_URL,
+          2
         );
 
       }
-
     );
 
 
-
     /* =========================
-       START MUSIC
+       MUSIC
     ========================== */
 
     function startMusic() {
-
 
       song.volume = 1;
 
@@ -694,43 +593,25 @@
         song.play();
 
 
-
       if (promise !== undefined) {
 
-
         promise
-
           .then(() => {
-
 
             musicButton.textContent =
               "MUTE";
 
 
-            /*
-              Remove the first-touch
-              layer after successful
-              playback.
-            */
-
             touchLayer.style.display =
               "none";
 
-
           })
-
-
           .catch((error) => {
 
-
             console.log(
-
               "Audio blocked:",
-
               error
-
             );
-
 
           });
 
@@ -739,55 +620,35 @@
     }
 
 
-
     /* =========================
        FIRST TOUCH
     ========================== */
 
     touchLayer.addEventListener(
-
       "touchstart",
-
-      function () {
+      function() {
 
         startMusic();
 
       },
-
       {
-
         passive: true,
-
         once: true
-
       }
-
     );
 
-
-
-    /* =========================
-       FIRST CLICK
-    ========================== */
 
     touchLayer.addEventListener(
-
       "click",
-
-      function () {
+      function() {
 
         startMusic();
 
       },
-
       {
-
         once: true
-
       }
-
     );
-
 
 
     /* =========================
@@ -795,18 +656,13 @@
     ========================== */
 
     musicButton.addEventListener(
-
       "click",
-
-      function (event) {
-
+      function(event) {
 
         event.stopPropagation();
 
 
-
         if (song.paused) {
-
 
           song.volume = 1;
 
@@ -814,36 +670,24 @@
 
 
           song.play()
-
             .then(() => {
-
 
               musicButton.textContent =
                 "MUTE";
 
-
             })
-
             .catch((error) => {
 
-
               console.log(
-
                 "Audio blocked:",
-
                 error
-
               );
-
 
             });
 
-
         }
 
-
         else {
-
 
           song.pause();
 
@@ -851,13 +695,10 @@
           musicButton.textContent =
             "PLAY";
 
-
         }
 
       }
-
     );
-
 
 
     /* =========================
@@ -865,35 +706,27 @@
     ========================== */
 
     song.addEventListener(
-
       "play",
-
-      function () {
+      function() {
 
         musicButton.textContent =
           "MUTE";
 
       }
-
     );
 
 
     song.addEventListener(
-
       "pause",
-
-      function () {
+      function() {
 
         musicButton.textContent =
           "PLAY";
 
       }
-
     );
 
-
   </script>
-
 
 </body>
 
