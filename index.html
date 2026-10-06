@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -260,21 +261,25 @@
     ></iframe>
 
 
-    <!-- PAGE 1 HOTSPOT -->
+    <!-- =========================
+         HOME → PG 1
+    ========================== -->
 
     <button
       class="hotspot"
       id="hotspot1"
-      aria-label="Open page 2"
+      aria-label="Open PG 1"
     ></button>
 
 
-    <!-- PAGE 2 HOTSPOT -->
+    <!-- =========================
+         HOME → PG 2
+    ========================== -->
 
     <button
       class="hotspot"
       id="hotspot2"
-      aria-label="Open page 2"
+      aria-label="Open PG 2"
     ></button>
 
   </main>
@@ -336,38 +341,48 @@
 
 
     /* =========================
-       DESIGN SIZES
+       DESIGN WIDTH
     ========================== */
 
     const DESIGN_WIDTH = 1366;
 
-    const PAGE_1_HEIGHT = 5199;
 
-    const PAGE_2_HEIGHT = 6976;
+    /* =========================
+       PAGE HEIGHTS
+    ========================== */
+
+    const HOME_HEIGHT = 5199;
+
+    const PG1_HEIGHT = 6976;
+
+    const PG2_HEIGHT = 3966;
 
 
     /* =========================
        CANVA URLS
     ========================== */
 
-    const PAGE_1_URL =
+    const HOME_URL =
+      "https://www.canva.com/design/DAHXDm-Q1U8/4WPheNzhMWogiVXa4VgWkg/view?embed";
+
+
+    const PG1_URL =
       "https://www.canva.com/design/DAHXJ2qulUI/y1Ny_6cpiQN4chiQ_OMktw/view?embed";
 
 
-    /*
-      Replace this with the real Canva
-      URL of the second design.
-    */
-
-    const PAGE_2_URL =
+    const PG2_URL =
       "https://www.canva.com/design/DAHXMbpo0t0/wRemkdE1Ugs4PvQncVCwWA/view?embed";
 
 
     /* =========================
        CURRENT PAGE
+       
+       0 = HOME
+       1 = PG 1
+       2 = PG 2
     ========================== */
 
-    let currentPage = 1;
+    let currentPage = 0;
 
 
     /* =========================
@@ -380,20 +395,16 @@
 
 
     /* =========================
-       HOTSPOT POSITIONS
+       HOME HOTSPOTS
     ========================== */
 
-    /*
-      These coordinates are based
-      on the original 1366px design.
-    */
-
-    const PAGE_1_HOTSPOTS = [
+    const homeHotspots = [
 
       {
         element: hotspot1,
 
         x: 979.4,
+
         y: 1627.4
       },
 
@@ -401,6 +412,7 @@
         element: hotspot2,
 
         x: 979.4,
+
         y: 2004.5
       }
 
@@ -413,20 +425,23 @@
 
     function setPageSize(pageHeight) {
 
-      const width =
+      const displayedWidth =
         invitation.clientWidth;
 
-      const height =
-        width * (pageHeight / DESIGN_WIDTH);
+
+      const displayedHeight =
+        displayedWidth *
+        (pageHeight / DESIGN_WIDTH);
+
 
       invitation.style.height =
-        height + "px";
+        displayedHeight + "px";
 
     }
 
 
     /* =========================
-       POSITION HOTSPOTS
+       POSITION HOME HOTSPOTS
     ========================== */
 
     function positionHotspots() {
@@ -439,7 +454,7 @@
         displayedWidth / DESIGN_WIDTH;
 
 
-      PAGE_1_HOTSPOTS.forEach((hotspot) => {
+      homeHotspots.forEach((hotspot) => {
 
         const button =
           hotspot.element;
@@ -466,24 +481,62 @@
 
 
     /* =========================
-       UPDATE PAGE
+       SHOW / HIDE HOTSPOTS
+    ========================== */
+
+    function updateHotspots() {
+
+      if (currentPage === 0) {
+
+        hotspot1.style.display =
+          "block";
+
+        hotspot2.style.display =
+          "block";
+
+      }
+
+      else {
+
+        hotspot1.style.display =
+          "none";
+
+        hotspot2.style.display =
+          "none";
+
+      }
+
+    }
+
+
+    /* =========================
+       UPDATE PAGE LAYOUT
     ========================== */
 
     function updatePageLayout() {
 
-      if (currentPage === 1) {
+      if (currentPage === 0) {
 
         setPageSize(
-          PAGE_1_HEIGHT
+          HOME_HEIGHT
         );
 
       }
 
 
-      if (currentPage === 2) {
+      else if (currentPage === 1) {
 
         setPageSize(
-          PAGE_2_HEIGHT
+          PG1_HEIGHT
+        );
+
+      }
+
+
+      else if (currentPage === 2) {
+
+        setPageSize(
+          PG2_HEIGHT
         );
 
       }
@@ -491,15 +544,21 @@
 
       positionHotspots();
 
+      updateHotspots();
+
     }
 
 
     /* =========================
-       INITIAL LAYOUT
+       INITIAL HOME
     ========================== */
 
     updatePageLayout();
 
+
+    /* =========================
+       RESPONSIVE
+    ========================== */
 
     window.addEventListener(
       "resize",
@@ -508,30 +567,57 @@
 
 
     /* =========================
-       CHANGE CANVA PAGE
+       CHANGE PAGE
     ========================== */
 
     function changePage(
       url,
-      pageNumber
+      pageNumber,
+      pageHeight
     ) {
 
       currentPage =
         pageNumber;
 
 
+      /*
+        Change the wrapper size
+        BEFORE loading the new Canva.
+      */
+
+      setPageSize(
+        pageHeight
+      );
+
+
+      updateHotspots();
+
+
+      /*
+        Change Canva design.
+      */
+
       canvaFrame.src =
         url;
 
 
-      updatePageLayout();
+      /*
+        Always start the new design
+        from the top.
+      */
+
+      window.scrollTo({
+        top: 0,
+        behavior: "instant"
+      });
 
     }
 
 
     /* =========================
-       HOTSPOT 1
-       PAGE 1 → PAGE 2
+       FIRST HOME BUTTON
+       
+       HOME → PG 1
     ========================== */
 
     hotspot1.addEventListener(
@@ -544,8 +630,9 @@
 
 
         changePage(
-          PAGE_2_URL,
-          2
+          PG1_URL,
+          1,
+          PG1_HEIGHT
         );
 
       }
@@ -553,11 +640,9 @@
 
 
     /* =========================
-       HOTSPOT 2
-       PAGE 2 → PAGE 2
+       SECOND HOME BUTTON
        
-       Change this later to
-       another page if needed.
+       HOME → PG 2
     ========================== */
 
     hotspot2.addEventListener(
@@ -570,8 +655,9 @@
 
 
         changePage(
-          PAGE_2_URL,
-          2
+          PG2_URL,
+          2,
+          PG2_HEIGHT
         );
 
       }
@@ -731,3 +817,4 @@
 </body>
 
 </html>
+```
