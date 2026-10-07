@@ -142,8 +142,8 @@
 
       position: absolute;
 
-      width: 180px;
-      height: 160px;
+      width: 87.1px;
+      height: 78.4px;
 
       background: transparent;
 
@@ -294,27 +294,34 @@
        HOTSPOT SIZE
     ========================== */
 
-    const HOTSPOT_WIDTH = 180;
+    const HOTSPOT_WIDTH = 87.1;
 
-    const HOTSPOT_HEIGHT = 160;
+    const HOTSPOT_HEIGHT = 78.4;
 
 
     /* =========================
        HOTSPOT POSITIONS
+       Coordinates are based on
+       the original 1366 × 5199
+       Canva design
     ========================== */
 
     const homeHotspots = [
 
       {
         element: hotspot1,
-        x: 979.4,
-        y: 1627.4
+
+        x: 934.3,
+
+        y: 1586.5
       },
 
       {
         element: hotspot2,
-        x: 979.4,
-        y: 2004.5
+
+        x: 935.5,
+
+        y: 1922.7
       }
 
     ];
@@ -357,6 +364,12 @@
           hotspot.element;
 
 
+        /*
+          Position is calculated
+          from the original Canva
+          1366px-wide design.
+        */
+
         button.style.left =
           (hotspot.x * scale) + "px";
 
@@ -364,6 +377,12 @@
         button.style.top =
           (hotspot.y * scale) + "px";
 
+
+        /*
+          Keep the exact original
+          button size while scaling
+          with the Canva design.
+        */
 
         button.style.width =
           (HOTSPOT_WIDTH * scale) + "px";
